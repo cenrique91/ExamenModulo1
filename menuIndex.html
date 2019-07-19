@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
+
+</head>
+
+<body>
+    <div class="modal fade" id="modalIniciarSesion">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Iniciar Sesión</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form autocomplete="off">
+                        <div class="form-group">
+                            <label for="inputEmail">Correo Electrónico:</label>
+                            <input type="email" id="inputEmail" name="inputEmail" class="form-control"
+                                placeholder="Ejm: ejemplo@gmail.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword">Contraseña:</label>
+                            <input type="password" id="inputPassword" name="inputPassword" class="form-control"
+                                placeholder="Ingrese su contraseña">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnIngresar">
+                        Iniciar Sesion
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade" id="modalCrearCuenta">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Crea una nueva cuenta</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form autocomplete="off">
+                        <div class="form-group">
+                            <label for="inputNombreCrear">Nombre:</label>
+                            <input type="text" id="inputNombreCrear" name="inputEmailCrear" class="form-control"
+                                placeholder="Ejm: nombre">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmailCrear">Correo Electrónico:</label>
+                            <input type="email" id="inputEmailCrear" name="inputEmailCrear" class="form-control"
+                                placeholder="Ejm: ejemplo@gmail.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPasswordCrear1">Contraseña:</label>
+                            <input type="password" id="inputPasswordCrear1" name="inputPasswordCrear1"
+                                class="form-control" placeholder="Ingrese su contraseña">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPasswordCrear2">Repita la Contraseña:</label>
+                            <input type="password" id="inputPasswordCrear2" name="inputPasswordCrear2"
+                                class="form-control" placeholder="Ingrese su contraseña">
+
+                            <small id="helpPassword" class="form-text text-muted" hidden>.......</small>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="tipo"> Elija el tipo de usuario</label>
+                            <select name="tipo" id="tipo">
+                                <option value="admin">Admin</option>
+                                <option value="normal">Normal</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnGuardadCuenta">
+                        Crear Cuenta
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+
+        <!-- Botones para cambiar de usuario -->
+        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+            
+            <div class="btn-group" role="group">
+                <button id="btnInicio" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Inicio
+                </button>
+                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" x-placement="bottom-start"
+                    style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 36px, 0px);">
+                    <a class="dropdown-item" id="btnIniciarSesion">Iniciar Sesion</a>
+                    <a class="dropdown-item" id="btnCrearCuenta" href="#">Crear Cuenta</a>
+                    <a class="dropdown-item" id="btnCerrarSesion" href="#">Cerrar Sesion</a>
+
+                </div>
+            </div>
+        </div>
+
+
+    </nav>
+
+    <main>
+        <button> Ver Rutas </button>
+        <button> Crear Rutas </button>
+
+    </main>
+
+
+
+    <script src="https://www.gstatic.com/firebasejs/6.3.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.0/firebase-auth.js"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script type="module" src="./js/main.js"></script>
+
+</body>
+
+</html>
