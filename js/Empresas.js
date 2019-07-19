@@ -9,6 +9,6 @@ export class Empresa {
         this.ida.push(objIda);
         this.imagen = imagen;
         this.nombre = nombre;
-        this.vuelta.push(objVuelta;
+        this.vuelta.push(objVuelta);
     }
 }

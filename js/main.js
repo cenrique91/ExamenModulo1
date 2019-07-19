@@ -1,10 +1,9 @@
 import { firebaseConfig } from './variables.js';
 import { estiloMapa } from './variables.js';
-import { Empresa } from `./Empresas.js`;
-import { Ida } from `./Ida.js`;
+import { Empresa } from './Empresas.js';
+import { Ida } from './Ida.js';
 
 window.onload = () => {
-
     let coordenadaAnteriorIda;
     let coordenadaAnteriorVuelta;
 
@@ -14,44 +13,9 @@ window.onload = () => {
     let refStorage = firebase.storage();
     // Creando la referencia a Usuarios
     let refEmpresas = firebase.database().ref("empresas");
-  
-    let getPlatos = () => {
-        $("main").html(`<div class="text-center">
-                                <div class="spinner-border" role="status">
-                                <span class="sr-only">Loading...</span>
-                                </div>
-                            </div>`);
-        refEmpresas.on("value", dataSnapshot => {
-            renderizarEmpresas(dataSnapshot);
-        });
-    }
 
-    // let renderizarEmpresas = (dataSnapshot) => {
-    //     $("#listaEmpresas").html("");
-    //     let listaEmpresas = [];
-    //     let listaIda=[];
-    //     dataSnapshot.forEach(empresas => {
-    //         let objEmpresa = new Empresa(empresas.key,
-    //             empresas.val().nombre,
-    //             empresas.val().imagen,
-    //             empresas.val().nombre);
-    //         let refEmpresasIda = firebase.database().ref(`empresas/${empresas.key}/ida`);
-    //         refEmpresasIda.on("value", dataSnapshotIda => {
-    //             renderizarEmpresas(dataSnapshot);
-    //         });
-    //         refEmpresasIda.on()
-    //         .forEach(ida =>{
-    //             let objIda = new Ida(ida.key,
-    //                 ida.val().lat,
-    //                 ida.val().lng,);
-    //                 listaIda.push(objIda);
-    //         })
-                
-    //         listaEmpresas.push(objPlato);
-    //     });
-    }
-
-    // ////////////////////////////////////////////////////////////////////////////////////////////////////
+    if (location.href.indexOf("CrearEmpresa") >= 0) {
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////
     //                                CREAR Y SUBIR DATOS DE LA EMPRESA
     // ////////////////////////////////////////////////////////////////////////////////////////////////////
     let createEmpresa = () => {
@@ -350,5 +314,60 @@ window.onload = () => {
     configurarListenersIda();
     posicionActualVuelta();
     configurarListenersVuelta();
+    }
+
+    // //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    if (location.href.indexOf("MostrarEmpresa") >= 0) {
+        let getEmpresa = () => {
+            $("main").html(`<div class="text-center">
+                                    <div class="spinner-border" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>`);
+            refEmpresas.on("value", dataSnapshot => {
+                renderizarEmpresas(dataSnapshot);
+            });
+        }
+    
+        let listaEmpresas = [];
+        let listaIda=[];
+        let renderizarEmpresas = (dataSnapshot) => {
+            $("#listaEmpresas").html("");
+            dataSnapshot.forEach(empresas => {
+                let objEmpresa = new Empresa(empresas.key,
+                    empresas.val().nombre,
+                    empresas.val().imagen,
+                    empresas.val().nombre);
+                    console.log(objEmpresa);
+                    
+                let refEmpresasIda = firebase.database().ref(`empresas/${empresas.key}/ida`);
+                refEmpresasIda.on("value", dataSnapshotIda => {
+                    empresasIda(dataSnapshotIda,objEmpresa);
+                });
+                
+            });
+        }
+    
+        let empresasIda = (dataSnapshotIda,objEmpresa)=>{
+            dataSnapshotIda.forEach(ida =>{
+                let objIda = new Ida(ida.key,
+                    ida.val().lat,
+                    ida.val().lng);
+                listaIda.push(objIda);
+            })
+            objEmpresa.ida=listaIda;
+            listaEmpresas.push(objEmpresa);
+            console.log(objEmpresa);
+            
+        }
+    
+        
+        getEmpresa();
+    }
+
+    
+  
+    
 
 }
